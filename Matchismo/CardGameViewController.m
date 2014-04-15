@@ -59,8 +59,14 @@
     return card.isChosen ? card.contents : @"";
 }
 
--(UIImage *)backgroundImageForCard: (Card *) card {
+- (UIImage *)backgroundImageForCard: (Card *) card {
     return [UIImage imageNamed:card.isChosen ? @"cardfront" : @"cardback"];
+}
+
+- (IBAction)redeal:(id)sender {
+    self.game = [[CardMatchingGame alloc] initWithCardCount:[self.cardButtons count]
+                                                  usingDeck:[self createDeck]];
+    [self updateUI];
 }
 
 
