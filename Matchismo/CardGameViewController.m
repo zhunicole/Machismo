@@ -18,6 +18,7 @@
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardButtons;
 @property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
 
+@property (weak, nonatomic) IBOutlet UILabel *resultsLabel;
 
 @end
 
@@ -29,7 +30,6 @@
                                                   usingDeck:[self createDeck]];
         self.game.numCardMatchMode = 2; //initialized to 2
     }
-    
     return _game;
 }
 
@@ -97,6 +97,11 @@
         self.game.numCardMatchMode = 3;
     }
 }
+
+
+
+
+
 
 
 @end
