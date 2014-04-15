@@ -8,6 +8,7 @@
 
 #import "CardMatchingGame.h"
 
+
 //private properties in area called Class Extension
 @interface CardMatchingGame()
 @property (nonatomic, readwrite) NSInteger score;  //redeclaring

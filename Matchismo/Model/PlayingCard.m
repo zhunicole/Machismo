@@ -40,23 +40,20 @@
 }
 
 
+
 - (int)match:(NSArray *)otherCards {
-    int ismatch = 0;
-    for (PlayingCard *card in otherCards) {
-        NSLog(@"ranks: %d %d", card.rank, self.rank);
-        NSLog(@"suits: %@ %@",card.suit, self.suit);
-
-        if ([card.suit isEqualToString:self.suit]){
-            ismatch = 1;
-        }
-        if (card.rank == self.rank){
-            ismatch = 2;
-
+    int score = 0;
+    
+    if([otherCards count] == 1) {
+        PlayingCard *otherCard = [otherCards firstObject];
+        if (otherCard.rank == self.rank) {
+            score = 4;
+        } else if ([otherCard.suit isEqualToString:self.suit]) {
+            score = 1;
         }
     }
-    NSLog(@"Match result is  %d", ismatch);
-    return ismatch;
-
+    
+    return score;
 }
 
 
