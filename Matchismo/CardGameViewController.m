@@ -86,7 +86,9 @@
     self.game = nil;
     [self game];            //creates a new game object
     [self updateUI];
+    [self updateCardMatchMode];
     cardMatchModeControl.userInteractionEnabled = YES;
+
 
 }
 
@@ -94,12 +96,16 @@
 @synthesize cardMatchModeControl;
 
 - (IBAction)toggleCardMatchMode:(id)sender {
+    [self updateCardMatchMode];
+}
+
+-(void)updateCardMatchMode {
     if (cardMatchModeControl.selectedSegmentIndex == 0) {
         NSLog(@"clicked for 2");
         self.game.numCardMatchMode = 2;
     } else {
         NSLog(@"clicked for 3");
-
+        
         self.game.numCardMatchMode = 3;
     }
 }
