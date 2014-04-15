@@ -9,7 +9,6 @@
 #import "CardGameViewController.h"
 #import "Deck.h"
 #import "PlayingCardDeck.h"
-#import "PlayingCard.h"
 #import "CardMatchingGame.h"
 
 
@@ -52,6 +51,9 @@
         [cardButton setBackgroundImage:[self backgroundImageForCard:card] forState:UIControlStateNormal];
         cardButton.enabled = !card.isMatched;
         self.scoreLabel.text = [NSString stringWithFormat:@"Score: %d", self.game.score];
+
+        //TODO some changes here
+    
     }
 }
 
@@ -67,6 +69,21 @@
     self.game = nil;
     [self game];
     [self updateUI];
+}
+
+
+@synthesize cardMatchModeControl;
+
+- (IBAction)toggleCardMatchMode:(id)sender {
+    if (cardMatchModeControl.selectedSegmentIndex == 0) {
+        NSLog(@"2");
+
+        self.game.numCardMatchMode = 2;
+    } else {
+        NSLog(@"3");
+
+        self.game.numCardMatchMode = 3;
+    }
 }
 
 

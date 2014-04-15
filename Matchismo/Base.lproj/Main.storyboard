@@ -164,24 +164,36 @@
                                 <rect key="frame" x="20" y="439" width="280" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e0y-EX-Ltk">
-                                <rect key="frame" x="137" y="363" width="64" height="30"/>
+                                <rect key="frame" x="236" y="430" width="64" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Redeal">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
                                     <action selector="redeal:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="Xj6-io-Ffy"/>
                                 </connections>
                             </button>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="grx-SE-kJ6">
+                                <rect key="frame" x="20" y="356" width="280" height="29"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <segments>
+                                    <segment title="2-card-match-mode"/>
+                                    <segment title="3-card-match-mode"/>
+                                </segments>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <action selector="toggleCardMatchMode:" destination="vXZ-lx-hvc" eventType="valueChanged" id="7Vl-y0-Kb8"/>
+                                </connections>
+                            </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.50196081399917603" blue="0.25098040699958801" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <connections>
+                        <outlet property="cardMatchModeControl" destination="grx-SE-kJ6" id="8zs-VY-TjS"/>
                         <outlet property="scoreLabel" destination="erQ-ty-64d" id="R5i-SL-cfk"/>
                         <outletCollection property="cardButtons" destination="DQx-Sh-bjd" id="W0D-gO-HqZ"/>
                         <outletCollection property="cardButtons" destination="2lQ-vv-hKx" id="rw4-e2-Fjq"/>
