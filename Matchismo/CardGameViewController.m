@@ -64,8 +64,8 @@
 }
 
 - (IBAction)redeal:(id)sender {
-    self.game = [[CardMatchingGame alloc] initWithCardCount:[self.cardButtons count]
-                                                  usingDeck:[self createDeck]];
+    self.game = nil;
+    [self game];
     [self updateUI];
 }
 
