@@ -27,16 +27,11 @@
     if (!_game) {
         _game = [[CardMatchingGame alloc] initWithCardCount:[self.cardButtons count]
                                                   usingDeck:[self createDeck]];
-
+        self.game.numCardMatchMode = 2; //initialized to 2
     }
     
     return _game;
 }
-
-
-//need to put this somewhere
-//_numCardMatchMode = 2; //by default match mode is 2 cards to match
-
 
 
 -(Deck *)createDeck {
@@ -60,11 +55,6 @@
         [cardButton setBackgroundImage:[self backgroundImageForCard:card] forState:UIControlStateNormal];
         cardButton.enabled = !card.isMatched;
         self.scoreLabel.text = [NSString stringWithFormat:@"Score: %d", self.game.score];
-
-        //TODO some changes here
-        
-
-    
     }
     //if (game is in session)//disable button.
     if(_game){
@@ -88,8 +78,6 @@
     [self updateUI];
     [self updateCardMatchMode];
     cardMatchModeControl.userInteractionEnabled = YES;
-
-
 }
 
 
