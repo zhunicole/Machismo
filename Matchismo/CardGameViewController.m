@@ -24,10 +24,19 @@
 @implementation CardGameViewController
 
 - (CardMatchingGame *) game{
-    if (!_game) _game = [[CardMatchingGame alloc] initWithCardCount:[self.cardButtons count]
-                                                          usingDeck:[self createDeck]];
+    if (!_game) {
+        _game = [[CardMatchingGame alloc] initWithCardCount:[self.cardButtons count]
+                                                  usingDeck:[self createDeck]];
+
+    }
+    
     return _game;
 }
+
+
+//need to put this somewhere
+//_numCardMatchMode = 2; //by default match mode is 2 cards to match
+
 
 
 -(Deck *)createDeck {
@@ -53,7 +62,15 @@
         self.scoreLabel.text = [NSString stringWithFormat:@"Score: %d", self.game.score];
 
         //TODO some changes here
+        
+
     
+    }
+    //if (game is in session)//disable button.
+    if(_game){
+        cardMatchModeControl.userInteractionEnabled = NO;
+    } else {
+        cardMatchModeControl.userInteractionEnabled = YES;
     }
 }
 
@@ -67,8 +84,10 @@
 
 - (IBAction)redeal:(id)sender {
     self.game = nil;
-    [self game];
+    [self game];            //creates a new game object
     [self updateUI];
+    cardMatchModeControl.userInteractionEnabled = YES;
+
 }
 
 
@@ -76,11 +95,10 @@
 
 - (IBAction)toggleCardMatchMode:(id)sender {
     if (cardMatchModeControl.selectedSegmentIndex == 0) {
-        NSLog(@"2");
-
+        NSLog(@"clicked for 2");
         self.game.numCardMatchMode = 2;
     } else {
-        NSLog(@"3");
+        NSLog(@"clicked for 3");
 
         self.game.numCardMatchMode = 3;
     }

@@ -42,7 +42,6 @@
             }
         }
     }
-    _numCardMatchMode = 2; //by default match mode is 2 cards to match
     _card1 = nil;
     _card2 = nil;
     return self;
@@ -86,10 +85,9 @@ static const int COST_TO_CHOOSE = 1;
                     }
                 }
             } else if (self.numCardMatchMode == 3 ) {
-                //store temp cards
-                NSLog(@"here");
                 _card1 = nil;
-                _card2 = nil;   //reset every single time
+                _card2 = nil;
+                //TODO: just have them as local vars?
                 for (Card *otherCard in self.cards) {
                     if (otherCard.isChosen && !otherCard.isMatched) {
                         if (_card1){ //if card 1 exists
@@ -122,21 +120,20 @@ static const int COST_TO_CHOOSE = 1;
                         _card2.matched = YES;
                     }
                     
+                    //double score if there is a a triple match!
+                    if (score1 > 0 && score2 > 0 && score3 > 0) {
+                        score1 *=2;
+                        score2 *=2;
+                        score3 *=2;
+                    };
+                    
                     if (!card.matched) card.chosen = NO;
                     if (!_card1.matched) _card1.chosen = NO;
                     if (!_card2.matched) _card2.chosen = NO;
                     
                     self.score += score1 + score2 +score3;
-                    
-                    _card1 = nil;
-                    _card2 = nil;
-                } else {  //dont have 3 cards up yet!
-                    
                 }
-                //
-
             }
-            
             self.score -= COST_TO_CHOOSE;
             card.chosen = YES;
         }
@@ -146,16 +143,11 @@ static const int COST_TO_CHOOSE = 1;
 //both cards are chosen (faceup, and cards haven't been matched)
 -(NSInteger) computeMatchScore:(Card *)card with:(Card *)otherCard {
     int tempScore = 0;
-    
     int matchScore = [card match:@[otherCard]];
     if (matchScore) {
         tempScore += matchScore * MATCH_BONUS;
-//        otherCard.matched = YES;
-//        card.matched = YES;
     } else {
-        tempScore -= MISMATCH_PENALTY;
-        
-//        otherCard.chosen = NO;
+        tempScore -= MISMATCH_PENALTY;   //might need to fix when this is updated
     }
 
     return tempScore;
