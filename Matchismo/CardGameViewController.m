@@ -47,22 +47,27 @@
     int chosenButtonIndex = [self.cardButtons indexOfObject:sender];
     [self.game chooseCardAtIndex:chosenButtonIndex];
     [self updateResultsLabel:chosenButtonIndex];
+    [self updateSlider];
     [self updateUI];
+
+}
+
+/*set slider to right end whenever new move is made*/
+-(void) updateSlider {
+    [self.slider setValue:10 animated:YES];
+    [self.resultsLabel setAlpha:1.0 ];
 
 }
 
 -(void) updateResultsLabel:(NSInteger)index {
     Card *card = [self.game cardAtIndex:index];
-
     if(self.game.numCardMatchMode == 2){
         [self updateTwoCardMatchLabel:card];
     } else {        //if matching three cards
         [self updateThreeCardMatchLabel: card];
     }
-    NSString *current_label = [self.resultsLabel text]; //TODO set to actual results label
+    NSString *current_label = [self.resultsLabel text];
     [self.labelHistory addObject:current_label];
-    //add label to history of label
-    
 }
 
 - (void) updateTwoCardMatchLabel:(Card*)card {
@@ -110,11 +115,15 @@
     int indexInt = index;
     NSString *labelAtIndex;
     if (indexInt == [self.labelHistory count]) {
-        labelAtIndex = @" ";
+        labelAtIndex = [self.labelHistory objectAtIndex:(indexInt-1)];
+        self.resultsLabel.text = [NSString stringWithFormat:@"%@", labelAtIndex];
+        [self.resultsLabel setAlpha: 1.0 ];
+        
     } else {
          labelAtIndex = [self.labelHistory objectAtIndex:indexInt];
+        self.resultsLabel.text = [NSString stringWithFormat:@"%@", labelAtIndex];
+        [self.resultsLabel setAlpha:0.5 ];
     }
-    self.resultsLabel.text = [NSString stringWithFormat:@"%@", labelAtIndex];
     
 }
 
