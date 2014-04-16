@@ -17,8 +17,11 @@
 @property (strong, nonatomic) CardMatchingGame *game;
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardButtons;
 @property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
-
+@property (weak, nonatomic) IBOutlet UISlider *slider;
+@property (nonatomic, retain) NSMutableArray *labelHistory;
 @property (weak, nonatomic) IBOutlet UILabel *resultsLabel;
+
+
 
 @end
 
@@ -29,6 +32,7 @@
         _game = [[CardMatchingGame alloc] initWithCardCount:[self.cardButtons count]
                                                   usingDeck:[self createDeck]];
         self.game.numCardMatchMode = 2; //initialized to 2
+        self.labelHistory = [[NSMutableArray alloc] init];
     }
     return _game;
 }
@@ -55,6 +59,10 @@
     } else {        //if matching three cards
         [self updateThreeCardMatchLabel: card];
     }
+    NSString *current_label = [self.resultsLabel text]; //TODO set to actual results label
+    [self.labelHistory addObject:current_label];
+    //add label to history of label
+    
 }
 
 - (void) updateTwoCardMatchLabel:(Card*)card {
@@ -74,6 +82,7 @@
     }
 }
 
+
 - (void) updateThreeCardMatchLabel:(Card*)card {
     NSString *cardContent = card.contents;
     //if all three are flipped
@@ -92,6 +101,21 @@
             self.resultsLabel.text = [NSString stringWithFormat:@"%@", cardContent];
         }
     }
+}
+
+- (IBAction)toggleLabelHistory:(id)sender {
+    int sliderVal = self.slider.value;
+    double index = sliderVal / 10.0;
+    index *= [self.labelHistory count];
+    int indexInt = index;
+    NSString *labelAtIndex;
+    if (indexInt == [self.labelHistory count]) {
+        labelAtIndex = @" ";
+    } else {
+         labelAtIndex = [self.labelHistory objectAtIndex:indexInt];
+    }
+    self.resultsLabel.text = [NSString stringWithFormat:@"%@", labelAtIndex];
+    
 }
 
 - (void)updateUI {

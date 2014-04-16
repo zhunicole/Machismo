@@ -178,7 +178,7 @@
                                 </connections>
                             </button>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="grx-SE-kJ6">
-                                <rect key="frame" x="20" y="356" width="280" height="29"/>
+                                <rect key="frame" x="20" y="403" width="280" height="29"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <segments>
                                     <segment title="2-card-match-mode"/>
@@ -190,12 +190,19 @@
                                 </connections>
                             </segmentedControl>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Let's play!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KwH-5p-sQR">
-                                <rect key="frame" x="20" y="392" width="280" height="30"/>
+                                <rect key="frame" x="20" y="334" width="280" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="10" minValue="0.0" maxValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="SnT-aB-f4e">
+                                <rect key="frame" x="18" y="365" width="284" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <action selector="toggleLabelHistory:" destination="vXZ-lx-hvc" eventType="valueChanged" id="GeW-20-qWk"/>
+                                </connections>
+                            </slider>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.50196081399917603" blue="0.25098040699958801" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
@@ -203,6 +210,7 @@
                         <outlet property="cardMatchModeControl" destination="grx-SE-kJ6" id="8zs-VY-TjS"/>
                         <outlet property="resultsLabel" destination="KwH-5p-sQR" id="wPe-Fo-O16"/>
                         <outlet property="scoreLabel" destination="erQ-ty-64d" id="R5i-SL-cfk"/>
+                        <outlet property="slider" destination="SnT-aB-f4e" id="6KI-cR-RgO"/>
                         <outletCollection property="cardButtons" destination="DQx-Sh-bjd" id="W0D-gO-HqZ"/>
                         <outletCollection property="cardButtons" destination="2lQ-vv-hKx" id="rw4-e2-Fjq"/>
                         <outletCollection property="cardButtons" destination="drj-OW-dKK" id="Eal-t3-mBp"/>
