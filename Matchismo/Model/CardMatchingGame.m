@@ -59,9 +59,6 @@ static const int COST_TO_CHOOSE = 1;
 
 
 - (void) chooseCardAtIndex:(NSUInteger)index{
-    
-    //TODO some changes here
-    NSLog(@"current mode: %d", _numCardMatchMode);
     _pointDifference = self.score;
     Card *card = [self cardAtIndex:index];
     _card1 = nil;
@@ -81,18 +78,13 @@ static const int COST_TO_CHOOSE = 1;
                             otherCard.matched = YES;
                             card.matched = YES;
                         } else {
-
                             self.score -= MISMATCH_PENALTY;
                             otherCard.chosen = NO;
                         }
-                        NSLog(@"here");
-                        
                         break; //since we only allow 2 cards for now
                     }
                 }
             } else if (self.numCardMatchMode == 3 ) {
-
-                //TODO: just have them as local vars?
                 for (Card *otherCard in self.cards) {
                     if (otherCard.isChosen && !otherCard.isMatched) {
                         if (_card1){ //if card 1 exists
@@ -104,25 +96,27 @@ static const int COST_TO_CHOOSE = 1;
                     if (_card2) break; //only finding 2 cards
                 }
                 if (_card2) {     //have three cards
-                    NSLog(@"have three cards!");
                     int score1 = [self computeMatchScore:card with:_card1];
                     int score2 = [self computeMatchScore:card with:_card2];
                     int score3 = [self computeMatchScore:_card1 with:_card2];
-                    
                     if (score1 > 0) {
-                        NSLog(@"card matched card 1");
+//                        NSLog(@"card matched card 1");
                         card.matched = YES;
                         _card1.matched = YES;
+                        score1 *= MATCH_BONUS;
                     }
                     if (score2 > 0){
-                        NSLog(@"card matched card 2");
+//                        NSLog(@"card matched card 2");
                         card.matched = YES;
                         _card2.matched = YES;
+                        score2 *= MATCH_BONUS;
+                        
                     }
                     if (score3 > 0){
-                        NSLog(@"card1 matched card 2");
+//                        NSLog(@"card1 matched card 2");
                         _card1.matched = YES;
                         _card2.matched = YES;
+                        score3 *= MATCH_BONUS;
                     }
                     
                     //double score if there is a a triple match!

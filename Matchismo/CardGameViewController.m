@@ -79,7 +79,6 @@
         
         //if all three are flipped
         if(self.game.card2) {
-            
             //if one and two match
             if (card.matched || self.game.card1.matched || self.game.card2.matched){
                 self.resultsLabel.text = [NSString stringWithFormat:@"Matched %@ %@ %@ for %d points", cardContent, self.game.card1.contents , self.game.card2.contents,self.game.pointDifference];
@@ -146,11 +145,8 @@
 
 -(void)updateCardMatchMode {
     if (cardMatchModeControl.selectedSegmentIndex == 0) {
-        NSLog(@"clicked for 2");
         self.game.numCardMatchMode = 2;
     } else {
-        NSLog(@"clicked for 3");
-        
         self.game.numCardMatchMode = 3;
     }
 }
