@@ -56,9 +56,9 @@
 
 -(void) updateResultsLabel:(NSInteger)index {
     Card *card = [self.game cardAtIndex:index];
+    NSString *cardContent = card.contents;
 
     if(self.game.numCardMatchMode == 2){
-        NSString *cardContent = card.contents;
         NSString *card1Content = self.game.card1.contents;
 
         if (!self.game.card1.isChosen) {
@@ -67,9 +67,7 @@
             self.game.card1.chosen = NO;
         }
         
-        
-        //one card chosen
-        if (!card1Content) {
+        if (!card1Content) {   //one card flipped
             self.resultsLabel.text = [NSString stringWithFormat:@"%@", cardContent];
         } else if (card.matched){
             self.resultsLabel.text = [NSString stringWithFormat:@"Matched %@ %@ for %d points", cardContent, card1Content, self.game.pointDifference];
@@ -78,7 +76,26 @@
         }
     } else {        //if matching three cards
         
-        self.resultsLabel.text = [NSString stringWithFormat:@"clicking: 3 match"];
+        
+        //if all three are flipped
+        if(self.game.card2) {
+            
+            //if one and two match
+            if (card.matched || self.game.card1.matched || self.game.card2.matched){
+                self.resultsLabel.text = [NSString stringWithFormat:@"Matched %@ %@ %@ for %d points", cardContent, self.game.card1.contents , self.game.card2.contents,self.game.pointDifference];
+            } else {
+                self.resultsLabel.text = [NSString stringWithFormat:@"%@ %@ %@ don't match! %d point penalty!", cardContent, self.game.card1.contents, self.game.card2.contents, self.game.pointDifference];
+            }
+
+        } else {    //when less than three cards are flipped
+            if(self.game.card1){ //two cards are flipped
+                NSString *card1Content = self.game.card1.contents;
+                self.resultsLabel.text = [NSString stringWithFormat:@"%@ %@", cardContent, card1Content];
+            } else { //only card is flipped
+                self.resultsLabel.text = [NSString stringWithFormat:@"%@", cardContent];
+            }
+        }
+
         
     }
 
