@@ -64,29 +64,34 @@ static const int COST_TO_CHOOSE = 1;
     NSLog(@"current mode: %d", _numCardMatchMode);
     
     Card *card = [self cardAtIndex:index];
+    _card1 = nil;
+    _card2 = nil;
     if(!card.isMatched) {
         if (card.isChosen) {
             card.chosen = NO;//just flips same card over
         }else {
-            
             if (self.numCardMatchMode == 2){
                 for (Card *otherCard in self.cards) {
                     if (otherCard.isChosen && !otherCard.isMatched) {
+                        //as soon as we find other card, we save it
+                        _card1 = otherCard;
                         int matchScore = [card match:@[otherCard]];
                         if (matchScore) {
                             self.score += matchScore * MATCH_BONUS;
                             otherCard.matched = YES;
                             card.matched = YES;
                         } else {
+
                             self.score -= MISMATCH_PENALTY;
                             otherCard.chosen = NO;
                         }
+                        NSLog(@"here");
+                        
                         break; //since we only allow 2 cards for now
                     }
                 }
             } else if (self.numCardMatchMode == 3 ) {
-                _card1 = nil;
-                _card2 = nil;
+
                 //TODO: just have them as local vars?
                 for (Card *otherCard in self.cards) {
                     if (otherCard.isChosen && !otherCard.isMatched) {

@@ -42,9 +42,47 @@
 
 - (IBAction)touchCardButton:(UIButton *)sender {
     int chosenButtonIndex = [self.cardButtons indexOfObject:sender];
-    [self.game chooseCardAtIndex:chosenButtonIndex];
+    
+    
+
+    [self.game chooseCardAtIndex:chosenButtonIndex];       //resets _card1/2 to nil
+
+    //set results label
+    [self updateResultsLabel:chosenButtonIndex];
+
     [self updateUI];
 
+}
+
+-(void) updateResultsLabel:(NSInteger)index {
+    //check
+    Card *card = [self.game cardAtIndex:index];
+
+    if(self.game.numCardMatchMode == 2){
+        NSString *cardContent = card.contents;
+        NSString *card1Content = self.game.card1.contents;
+
+        
+        if (!self.game.card1.isChosen) {
+            self.game.card1.chosen = YES;
+            card1Content = self.game.card1.contents;
+            
+            self.game.card1.chosen = NO;
+            
+        } else {
+            //retain old value?
+//            card1Content
+        }
+
+        
+        self.resultsLabel.text = [NSString stringWithFormat:@"clicked %@ %@", cardContent, card1Content];
+        
+    } else {        //if matching three cards
+        self.resultsLabel.text = [NSString stringWithFormat:@"clicking: 3 match"];
+        
+    }
+
+    
 }
 
 - (void)updateUI {
@@ -78,6 +116,8 @@
     [self updateUI];
     [self updateCardMatchMode];
     cardMatchModeControl.userInteractionEnabled = YES;
+    self.resultsLabel.text = [NSString stringWithFormat:@"Let's Play!"];
+
 }
 
 

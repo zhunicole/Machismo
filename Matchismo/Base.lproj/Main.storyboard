@@ -202,7 +202,6 @@
                     <connections>
                         <outlet property="cardMatchModeControl" destination="grx-SE-kJ6" id="8zs-VY-TjS"/>
                         <outlet property="resultsLabel" destination="KwH-5p-sQR" id="wPe-Fo-O16"/>
-                        <outlet property="resultsLable" destination="KwH-5p-sQR" id="Cxb-R2-kab"/>
                         <outlet property="scoreLabel" destination="erQ-ty-64d" id="R5i-SL-cfk"/>
                         <outletCollection property="cardButtons" destination="DQx-Sh-bjd" id="W0D-gO-HqZ"/>
                         <outletCollection property="cardButtons" destination="2lQ-vv-hKx" id="rw4-e2-Fjq"/>

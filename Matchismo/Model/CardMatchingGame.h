@@ -27,4 +27,6 @@
 @property (strong, nonatomic)Card *card1;
 @property (strong, nonatomic)Card *card2;
 
+//@property (strong, nonatomic)BOOL 
+
 @end
