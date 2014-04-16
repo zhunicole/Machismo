@@ -27,6 +27,8 @@
 @property (strong, nonatomic)Card *card1;
 @property (strong, nonatomic)Card *card2;
 
+@property (nonatomic)NSInteger pointDifference;
+
 //@property (strong, nonatomic)BOOL 
 
 @end

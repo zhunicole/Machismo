@@ -62,7 +62,7 @@ static const int COST_TO_CHOOSE = 1;
     
     //TODO some changes here
     NSLog(@"current mode: %d", _numCardMatchMode);
-    
+    _pointDifference = self.score;
     Card *card = [self cardAtIndex:index];
     _card1 = nil;
     _card2 = nil;
@@ -143,6 +143,7 @@ static const int COST_TO_CHOOSE = 1;
             card.chosen = YES;
         }
     }
+    self.pointDifference = self.score - self.pointDifference;
 }
 
 //both cards are chosen (faceup, and cards haven't been matched)

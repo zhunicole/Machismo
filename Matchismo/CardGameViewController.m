@@ -55,29 +55,29 @@
 }
 
 -(void) updateResultsLabel:(NSInteger)index {
-    //check
     Card *card = [self.game cardAtIndex:index];
 
     if(self.game.numCardMatchMode == 2){
         NSString *cardContent = card.contents;
         NSString *card1Content = self.game.card1.contents;
 
-        
         if (!self.game.card1.isChosen) {
             self.game.card1.chosen = YES;
             card1Content = self.game.card1.contents;
-            
             self.game.card1.chosen = NO;
-            
-        } else {
-            //retain old value?
-//            card1Content
         }
-
         
-        self.resultsLabel.text = [NSString stringWithFormat:@"clicked %@ %@", cardContent, card1Content];
         
+        //one card chosen
+        if (!card1Content) {
+            self.resultsLabel.text = [NSString stringWithFormat:@"%@", cardContent];
+        } else if (card.matched){
+            self.resultsLabel.text = [NSString stringWithFormat:@"Matched %@ %@ for %d points", cardContent, card1Content, self.game.pointDifference];
+        } else {
+            self.resultsLabel.text = [NSString stringWithFormat:@"%@ %@ don't match! %d point penalty!", cardContent, card1Content, self.game.pointDifference];
+        }
     } else {        //if matching three cards
+        
         self.resultsLabel.text = [NSString stringWithFormat:@"clicking: 3 match"];
         
     }
