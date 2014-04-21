@@ -17,8 +17,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
 @property (weak, nonatomic) IBOutlet UISlider *slider;
 @property (nonatomic, retain) NSMutableArray *labelHistory;
-@property (weak, nonatomic) IBOutlet UILabel *resultsLabel;
-@property (strong, nonatomic) CardMatchingGame *game;
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardButtons;
 
 
@@ -58,7 +56,7 @@
 -(void) updateResultsLabel:(NSInteger)index {
     Card *card = [self.game cardAtIndex:index];
     //    if(self.game.numCardMatchMode == 2){
-    [self updateTwoCardMatchLabel:card];
+    [self updateMatchLabel:card];
     //    } else {        //if matching three cards
     //        [self updateThreeCardMatchLabel: card];
     //    }
@@ -66,21 +64,8 @@
     [self.labelHistory addObject:current_label];
 }
 
-- (void) updateTwoCardMatchLabel:(Card*)card {
-    NSString *cardContent = card.contents;
-    NSString *card1Content = self.game.card1.contents;
-    if (!self.game.card1.isChosen) {
-        self.game.card1.chosen = YES;
-        card1Content = self.game.card1.contents;
-        self.game.card1.chosen = NO;
-    }
-    if (!card1Content) {   //one card flipped
-        self.resultsLabel.text = [NSString stringWithFormat:@"%@", cardContent];
-    } else if (card.matched){
-        self.resultsLabel.text = [NSString stringWithFormat:@"Matched %@ %@ for %d points", cardContent, card1Content, self.game.pointDifference];
-    } else {
-        self.resultsLabel.text = [NSString stringWithFormat:@"%@ %@ don't match! %d point penalty!", cardContent, card1Content, self.game.pointDifference];
-    }
+
+- (void) updateMatchLabel:(Card*)card {
 }
 
 //
@@ -147,17 +132,9 @@
     self.game = nil;
     [self game];            //creates a new game object
     [self updateUI];
-    
-    //TODO delete this since it's not required?
-    //    [self updateCardMatchMode];
-    //    cardMatchModeControl.userInteractionEnabled = YES;
     self.resultsLabel.text = [NSString stringWithFormat:@"Let's Play!"];
     
 }
-
-
-
-
 
 
 #pragma mark - View life cycle

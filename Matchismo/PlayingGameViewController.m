@@ -22,6 +22,26 @@
     return [[PlayingCardDeck alloc] init];
 }
 
+-(void)updateMatchLabel:(Card *)card {
+//    NSLog(@"checking for match");
+    NSString *cardContent = card.contents;
+    NSString *card1Content = super.game.card1.contents;
+    if (!self.game.card1.isChosen) {
+        self.game.card1.chosen = YES;
+        card1Content = self.game.card1.contents;
+        self.game.card1.chosen = NO;
+    }
+    if (!card1Content) {   //one card flipped
+        self.resultsLabel.text = [NSString stringWithFormat:@"%@", cardContent];
+    } else if (card.matched){
+//        NSLog(@"here");
+        self.resultsLabel.text = [NSString stringWithFormat:@"Matched %@ %@ for %d points", cardContent, card1Content, self.game.pointDifference];
+    } else {
+//        NSLog(@"here");
+        self.resultsLabel.text = [NSString stringWithFormat:@"%@ %@ don't match! %d point penalty!", cardContent, card1Content, self.game.pointDifference];
+    }
+
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {

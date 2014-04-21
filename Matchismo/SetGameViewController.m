@@ -22,6 +22,8 @@
     return [[SetCardDeck alloc] init];
 }
 
+-(void)updateMatchLabel:(Card *)card {
+}
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil

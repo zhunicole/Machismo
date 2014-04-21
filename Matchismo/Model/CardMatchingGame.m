@@ -68,11 +68,7 @@ static const int TRIPLE_MATCH_BONUS = 2;
         if (card.isChosen) {
             card.chosen = NO;//just flips same card over
         }else {
-            if (self.numCardMatchMode == 2){
-                [self twoCardMatch:card];
-            } else if (self.numCardMatchMode == 3 ) {
-                [self threeCardMatch:card];
-            }
+            [self twoCardMatch:card];
             self.score -= COST_TO_CHOOSE;
             card.chosen = YES;
         }
@@ -82,6 +78,7 @@ static const int TRIPLE_MATCH_BONUS = 2;
 
 
 -(void) twoCardMatch: (Card *) card {
+//    NSLog(@" twoCardMatch model");
     for (Card *otherCard in self.cards) {
         if (otherCard.isChosen && !otherCard.isMatched) {
             //as soon as we find other card, we save it

@@ -21,8 +21,6 @@
 
 
 @property (nonatomic, readonly) NSInteger score;
-@property (nonatomic) NSInteger numCardMatchMode;
-
 
 @property (strong, nonatomic)Card *card1;
 @property (strong, nonatomic)Card *card2;
