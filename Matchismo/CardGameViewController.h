@@ -11,6 +11,5 @@
 @interface CardGameViewController : UIViewController
 
 
-@property (weak, nonatomic) IBOutlet UISegmentedControl *cardMatchModeControl;
 
 @end

@@ -393,27 +393,15 @@
                                     <action selector="touchCardButton:" destination="09O-KV-pmn" eventType="touchUpInside" id="8sy-DP-Lrz"/>
                                 </connections>
                             </button>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="B5k-MC-YvH">
-                                <rect key="frame" x="20" y="378" width="280" height="29"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <segments>
-                                    <segment title="2-card-match-mode"/>
-                                    <segment title="3-card-match-mode"/>
-                                </segments>
-                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <connections>
-                                    <action selector="toggleCardMatchMode:" destination="09O-KV-pmn" eventType="valueChanged" id="10U-Fq-aR0"/>
-                                </connections>
-                            </segmentedControl>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Let's Play!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e0r-A7-R4H">
-                                <rect key="frame" x="20" y="327" width="280" height="30"/>
+                                <rect key="frame" x="20" y="334" width="280" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="10" minValue="0.0" maxValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="zy2-qN-M2D">
-                                <rect key="frame" x="18" y="348" width="284" height="31"/>
+                                <rect key="frame" x="18" y="365" width="284" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
@@ -442,7 +430,6 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Item" id="ldQ-S5-wfr"/>
                     <connections>
-                        <outlet property="cardMatchModeControl" destination="B5k-MC-YvH" id="nKt-zi-hhn"/>
                         <outlet property="resultsLabel" destination="e0r-A7-R4H" id="73g-Ae-llg"/>
                         <outlet property="scoreLabel" destination="dG7-oy-zMT" id="iLg-Am-xov"/>
                         <outlet property="slider" destination="zy2-qN-M2D" id="QEj-Pk-s44"/>

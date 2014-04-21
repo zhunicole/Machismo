@@ -14,13 +14,26 @@
 
 @implementation SetGameViewController
 
+
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
+        [self setup];
         // Custom initialization
     }
     return self;
+}
+
+- (void)awakeFromNib {
+    [self setup];
+}
+
+
+- (void)setup {
+    self.tabBarItem.title = @"Set Game";
+    
 }
 
 - (void)viewDidLoad
