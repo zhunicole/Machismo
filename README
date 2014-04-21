@@ -1,6 +1,10 @@
 user:nicolez (Zhu, Nicole)
 
-second submit: contains extra credit!
-flip count displays message when reach end of deck
+contains both extra credit options!
+flip count displays message when reach en
 
 thanks!
+
+Design decisions:
+
+My pt penalty takes into account COST_TO_CHOOSE bc it is more consistent with calculations (move to move wise). 
