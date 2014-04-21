@@ -1,10 +1,48 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5053" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="SqK-9R-mKg">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <scenes>
-        <!--Card Game View Controller-->
+        <!--Tab Bar Controller-->
+        <scene sceneID="8Pl-Ya-8Fi">
+            <objects>
+                <tabBarController definesPresentationContext="YES" id="SqK-9R-mKg" sceneMemberID="viewController">
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="w5G-zr-JZe">
+                        <rect key="frame" x="129" y="330" width="163" height="49"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="VOx-Wn-YnZ" kind="relationship" relationship="viewControllers" id="16M-Jr-ebk"/>
+                        <segue destination="vXZ-lx-hvc" kind="relationship" relationship="viewControllers" id="ibs-o6-8XW"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uYw-ho-7vm" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-472" y="45"/>
+        </scene>
+        <!--View Controller - Item 2-->
+        <scene sceneID="jvG-hb-xZR">
+            <objects>
+                <viewController id="VOx-Wn-YnZ" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="frP-Hb-YTn"/>
+                        <viewControllerLayoutGuide type="bottom" id="PBs-Is-Qwm"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="tF4-JU-uQL">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Item 2" id="x9t-37-oM7"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5RJ-6b-bTq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="62" y="327"/>
+        </scene>
+        <!--Card Game View Controller - Item-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
                 <viewController id="vXZ-lx-hvc" customClass="CardGameViewController" sceneMemberID="viewController">
@@ -207,6 +245,7 @@
                         </subviews>
                         <color key="backgroundColor" red="0.40000000596046448" green="0.40000000596046448" blue="0.40000000596046448" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
+                    <tabBarItem key="tabBarItem" title="Item" id="7hE-CE-gJY"/>
                     <connections>
                         <outlet property="cardMatchModeControl" destination="grx-SE-kJ6" id="8zs-VY-TjS"/>
                         <outlet property="resultsLabel" destination="KwH-5p-sQR" id="wPe-Fo-O16"/>
@@ -228,7 +267,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="77" y="25"/>
+            <point key="canvasLocation" x="73" y="-283"/>
         </scene>
     </scenes>
     <resources>

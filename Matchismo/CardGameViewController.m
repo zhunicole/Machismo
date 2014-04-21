@@ -178,6 +178,35 @@
 }
 
 
+#pragma mark - View life cycle
+
+- (void)awakeFromNib {
+    [self setup];
+}
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+    if(self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])
+    {
+        // setup code
+        [self setup];
+    }
+    return self;
+}
+
+- (void)setup {
+    self.tabBarItem.title = @"hello world";
+}
+
+
+// view setup that needs to be done once
+- (void)viewDidLoad {
+
+}
+
+// does every single time
+- (void)viewWillAppear:(BOOL)animated {
+    
+}
 
 
 
