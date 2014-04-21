@@ -10,11 +10,30 @@
 
 @implementation SetCard
 
+/*Content format is rank:shape:color:shade
+    e.g. 1▲purplesolid*/
 - (NSString *)contents {
     NSArray *rankStrings = [SetCard rankStrings];
+    NSString *stringContent = rankStrings[self.rank];
+    [stringContent stringByAppendingString:self.shape];
+    [stringContent stringByAppendingString:self.color];
+    [stringContent stringByAppendingString:self.shade];
     return [rankStrings[self.rank] stringByAppendingString:self.shape];
 }
 
+
+/*Rank or Count of shapes in card*/
++ (NSArray *)rankStrings {
+    return @[@"?",@"1",@"2",@"3"];
+}
++ (NSUInteger)maxRank {
+    return [[self rankStrings] count] -1;
+}
+- (void)setRank:(NSUInteger)rank {
+    if (rank <= [SetCard maxRank]) {
+        _rank = rank;
+    }
+}
 
 /*Shape*/
 @synthesize shape = _shape; //bc we provide both setter AND getter
@@ -30,31 +49,16 @@
     return _shape ? _shape : @"?";
 }
 
-/*Rank or Count of shapes in card*/
-+ (NSArray *)rankStrings {
-    return @[@"?",@"1",@"2",@"3"];
-}
-+ (NSUInteger)maxRank {
-    return [[self rankStrings] count] -1;
-}
-- (void)setRank:(NSUInteger)rank {
-    if (rank <= [SetCard maxRank]) {
-        _rank = rank;
-    }
-}
-
 /*Color*/
 @synthesize color = _color;
 + (NSArray *)validColors {
     return @[@"red",@"green",@"purple"];
 }
-
 -(void)setColor:(NSString *)color {
     if ([[SetCard validColors] containsObject:color]){
         _color = color;
     }
 }
-
 -(NSString *) color {
     return _color ? _color : @"?";
 }
@@ -64,13 +68,11 @@
 + (NSArray *)validShades {
     return @[@"solid",@"striped",@"open"];
 }
-
 -(void)setShade:(NSString *)shade {
     if ([[SetCard validShades] containsObject:shade]){
         _shade = shade;
     }
 }
-
 -(NSString *) shade {
     return _shade ? _shade : @"?";
 }
