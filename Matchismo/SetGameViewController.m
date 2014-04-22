@@ -22,6 +22,9 @@
     return [[SetCardDeck alloc] init];
 }
 
+
+
+
 -(void)updateMatchLabel:(Card *)card {
     //    NSString *cardContent = card.contents;
     //    //if all three are flipped

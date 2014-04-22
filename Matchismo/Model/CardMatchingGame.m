@@ -57,8 +57,6 @@
 static const int MISMATCH_PENALTY = 2;
 static const int MATCH_BONUS = 4;
 static const int COST_TO_CHOOSE = 1;
-static const int THREE_CARD_PENALTY = 2;
-static const int TRIPLE_MATCH_BONUS = 2;
 
 
 - (void) chooseCardAtIndex:(NSUInteger)index{
@@ -123,51 +121,28 @@ static const int TRIPLE_MATCH_BONUS = 2;
 }
 
 - (void) computeThreeCardMatchScore:(Card *) card {
-    int score1 = [self twoAtATime:card with:_card1];
-    int score2 = [self twoAtATime:card with:_card2];
-    int score3 = [self twoAtATime:_card1 with:_card2];
-    if (score1 > 0) {       // card matched card 1
+    NSMutableArray *setCards =[[NSMutableArray alloc] init];
+    [setCards addObject:_card1];
+    [setCards addObject:_card2];
+    int isASet = [card match:setCards];
+
+    if (isASet) {
+        NSLog(@"This is a set %@ %@ %@", card.contents, _card1.contents, _card2.contents);
         card.matched = YES;
         _card1.matched = YES;
-        score1 *= MATCH_BONUS;
-    }
-    if (score2 > 0){        // card matched card 2
-        card.matched = YES;
         _card2.matched = YES;
-        score2 *= MATCH_BONUS;
         
-    }
-    if (score3 > 0){            //card1 matched card 2
-        _card1.matched = YES;
-        _card2.matched = YES;
-        score3 *= MATCH_BONUS;
-    }
-    
-    //double score if there is a a triple match!
-    if (score1 > 0 && score2 > 0 && score3 > 0) {
-        score1 *= TRIPLE_MATCH_BONUS;
-        score2 *= TRIPLE_MATCH_BONUS;
-        score3 *= TRIPLE_MATCH_BONUS;
-    };
-    
-    if (!card.matched) card.chosen = NO;
-    if (!_card1.matched) _card1.chosen = NO;
-    if (!_card2.matched) _card2.chosen = NO;
-    
-    self.score += score1 + score2 +score3;
-}
-
-
--(NSInteger) twoAtATime:(Card *)card with:(Card *)otherCard {
-    int tempScore = 0;
-    int matchScore = [card match:@[otherCard]];
-    if (matchScore) {
-        tempScore += matchScore * MATCH_BONUS;
     } else {
-        tempScore -= THREE_CARD_PENALTY * MISMATCH_PENALTY;
+        NSLog(@"NOT a set %@ %@ %@", card.contents, _card1.contents, _card2.contents);
+        card.matched = NO;
+        _card1.matched = NO;
+        _card2.matched = NO;
     }
-
-    return tempScore;
+    card.chosen = NO;
+    _card1.chosen = NO;
+    _card2.chosen = NO;         //TODO implement chosen in view here, change card background
+    
+    self.score += 100;// TODO change this
 }
 
 @end

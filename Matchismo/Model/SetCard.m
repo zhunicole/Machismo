@@ -14,11 +14,12 @@
     e.g. 1▲purplesolid*/
 - (NSString *)contents {
     NSArray *rankStrings = [SetCard rankStrings];
+    NSLog(@"%d %@ %@ %@", self.rank, self.shape, self.color, self.shade);
     NSString *stringContent = rankStrings[self.rank];
     [stringContent stringByAppendingString:self.shape];
     [stringContent stringByAppendingString:self.color];
     [stringContent stringByAppendingString:self.shade];
-    return [rankStrings[self.rank] stringByAppendingString:self.shape];
+    return stringContent;
 }
 
 
@@ -77,21 +78,58 @@
     return _shade ? _shade : @"?";
 }
 
-/*Match function*/
-
+/*Match function
+    0 is no match
+    1 is SET!*/
 - (int)match:(NSArray *)otherCards {
-    int score = 0;
-
-    //TODO implement SET or no SET logic here
-//    if([otherCards count] == 1) {
-//        SetCard *otherCard = [otherCards firstObject];
-//        if (otherCard.rank == self.rank) {
-//            score = 4;
-//        } else if ([otherCard.shape isEqualToString:self.shape]) {
-//            score = 1;
-//        }
-//    }
-        //TODO implement this later. so far, default is no match
-    return score;
+    SetCard *card1 = (SetCard *) otherCards[0];
+    SetCard *card2 = (SetCard *) otherCards[1];
+    
+    //check rank
+    if ((self.rank == card1.rank) &&
+        (self.rank == card2.rank) &&
+        (card1.rank == card2.rank)){
+    } else if ((self.rank != card1.rank) &&
+               (self.rank != card2.rank) &&
+               (card1.rank != card2.rank)){
+    } else {
+        return 0;
+    }
+    
+    //check shape
+    if ([self.shape isEqualToString: card1.shape] &&
+        [self.shape isEqualToString: card2.shape] &&
+        [card1.shape isEqualToString: card2.shape]){
+    } else if (![self.shape isEqualToString: card1.shape] &&
+        ![self.shape isEqualToString: card2.shape] &&
+        ![card1.shape isEqualToString: card2.shape]) {
+    } else {
+        return 0;
+    }
+    
+    //check color
+    if ([self.color isEqualToString: card1.color] &&
+        [self.color isEqualToString: card2.color] &&
+        [card1.color isEqualToString: card2.color]){
+    } else if (![self.color isEqualToString: card1.color] &&
+        ![self.color isEqualToString: card2.color] &&
+        ![card1.color isEqualToString: card2.color]) {
+    } else {
+        return 0;
+    }
+    
+    //check shade
+    if ([self.shade isEqualToString: card1.shade] &&
+        [self.shade isEqualToString: card2.shade] &&
+        [card1.shade isEqualToString: card2.shade]){
+    } else if (![self.shade isEqualToString: card1.shade] &&
+        ![self.shade isEqualToString: card2.shade] &&
+        ![card1.shade isEqualToString: card2.shade]) {
+    } else {
+        return 0;
+    }
+    
+    //once pass all these conditions
+    return 1;
 }
 @end
