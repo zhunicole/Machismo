@@ -79,11 +79,9 @@
     if ([card.shade isEqualToString: @"open"]) {
         [title addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor] range:[[title string] rangeOfString:[title string]]];
     } else if ([card.shade isEqualToString: @"striped"]) {
-        NSLog(@"here");
         UIColor *color = [titleAttributes objectForKey:NSForegroundColorAttributeName];
         color = [color colorWithAlphaComponent:0.5];
         [title addAttribute:NSForegroundColorAttributeName value:color range:[[title string] rangeOfString:[title string]]];
-
     }
     
     [title addAttribute:NSStrokeWidthAttributeName value:[NSNumber numberWithFloat:-5.0] range: [[title string] rangeOfString:[title string]]];
