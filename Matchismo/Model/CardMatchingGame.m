@@ -57,7 +57,7 @@
 static const int MISMATCH_PENALTY = 2;
 static const int MATCH_BONUS = 4;
 static const int COST_TO_CHOOSE = 1;
-
+static const int SET_BONUS = 10;
 
 - (void) chooseCardAtIndex:(NSUInteger)index{
     _pointDifference = self.score;
@@ -131,7 +131,8 @@ static const int COST_TO_CHOOSE = 1;
         card.matched = YES;
         _card1.matched = YES;
         _card2.matched = YES;
-        
+        self.score += SET_BONUS;
+
     } else {
         NSLog(@"NOT a set %@ %@ %@", card.contents, _card1.contents, _card2.contents);
         card.matched = NO;
@@ -142,7 +143,6 @@ static const int COST_TO_CHOOSE = 1;
     _card1.chosen = NO;
     _card2.chosen = NO;         //TODO implement chosen in view here, change card background
     
-    self.score += 100;// TODO change this
 }
 
 @end

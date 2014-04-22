@@ -14,7 +14,6 @@
     e.g. 1▲purplesolid*/
 - (NSString *)contents {
     NSArray *rankStrings = [SetCard rankStrings];
-    NSLog(@"%d %@ %@ %@", self.rank, self.shape, self.color, self.shade);
     NSString *stringContent = rankStrings[self.rank];
     [stringContent stringByAppendingString:self.shape];
     [stringContent stringByAppendingString:self.color];
@@ -39,7 +38,7 @@
 /*Shape*/
 @synthesize shape = _shape; //bc we provide both setter AND getter
 + (NSArray *)validShapes {
-    return @[@"▲",@"⚪️",@"◻️"];
+    return @[@"▲",@"•",@"◼︎"];
 }
 -(void)setShape:(NSString *)shape {
     if ([[SetCard validShapes] containsObject:shape]){

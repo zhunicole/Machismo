@@ -9,6 +9,7 @@
 #import "SetGameViewController.h"
 #import "Deck.h"
 #import "SetCardDeck.h"
+#import "SetCard.h"
 
 @interface SetGameViewController ()
 
@@ -22,7 +23,99 @@
     return [[SetCardDeck alloc] init];
 }
 
+- (UIImage *)backgroundImageForCard: (Card *) card {
+    if (card.isChosen) {
+        return [UIImage imageNamed:@"stanford-tree"]; //when chosen
+    } else {
+        return [UIImage imageNamed:@"cardfront"];
+    }
+}
+- (void)updateUI {
+    [super updateUI];
+    
+    for (UIButton *cardButton in self.cardButtons) {
+        int cardButtonIndex = [self.cardButtons indexOfObject:cardButton];
+        SetCard *card = (SetCard *)[self.game cardAtIndex:cardButtonIndex];
+        //TODO eventually have to set title to "" empty string!!
+//        [cardButton setTitle:[self titleForCards:card] forState:UIControlStateNormal];
+        
+        if ([card rank] == 1) {
+            [self drawOne: card in: cardButton];
+        } else if ([card rank] == 2) {
+            [self drawTwo: card in: cardButton];
+        } else {
+            [self drawThree: card in: cardButton];
+        }
+        
+        [self setSymbolAttributes: card in:cardButton];
+        
+    }
+    
+}
 
+
+- (void) setSymbolAttributes:(SetCard*)card in:(UIButton*) cardButton{
+    
+    NSMutableAttributedString *title = [[cardButton attributedTitleForState:UIControlStateNormal] mutableCopy];
+    NSDictionary *titleAttributes;
+    
+    if ([card.color isEqualToString:@"red"]) {
+        titleAttributes = @{NSForegroundColorAttributeName:   [UIColor redColor],
+//                            NSStrokeWidthAttributeName: [NSNumber numberWithFloat:-5.0],
+                            NSStrokeColorAttributeName: [UIColor redColor]};
+    } else if ([card.color isEqualToString:@"green"]) {
+        titleAttributes = @{NSForegroundColorAttributeName:   [UIColor greenColor],
+//                            NSStrokeWidthAttributeName: [NSNumber numberWithFloat:-5.0],
+                            NSStrokeColorAttributeName: [UIColor greenColor]};
+    } else {
+        titleAttributes = @{NSForegroundColorAttributeName:   [UIColor purpleColor],
+//                            NSStrokeWidthAttributeName: [NSNumber numberWithFloat:-5.0],
+                            NSStrokeColorAttributeName: [UIColor purpleColor]};
+
+    }
+    [title setAttributes:titleAttributes range: [[title string] rangeOfString:[title string]]];
+
+
+    if ([card.shade isEqualToString: @"open"]) {
+        [title addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor] range:[[title string] rangeOfString:[title string]]];
+    } else if ([card.shade isEqualToString: @"striped"]) {
+        NSLog(@"here");
+        UIColor *color = [titleAttributes objectForKey:NSForegroundColorAttributeName];
+        color = [color colorWithAlphaComponent:0.5];
+        [title addAttribute:NSForegroundColorAttributeName value:color range:[[title string] rangeOfString:[title string]]];
+
+    }
+    
+    [title addAttribute:NSStrokeWidthAttributeName value:[NSNumber numberWithFloat:-5.0] range: [[title string] rangeOfString:[title string]]];
+    [cardButton setAttributedTitle:title forState:UIControlStateNormal];
+}
+
+- (void) drawOne:(SetCard *)card in:(UIButton*)cardButton {
+    NSAttributedString *title;
+    title = [[NSAttributedString alloc]  initWithString:[card shape]];
+    [cardButton setAttributedTitle:title forState:UIControlStateNormal];
+}
+
+
+- (void) drawTwo:(SetCard *)card in:(UIButton*)cardButton {
+    NSAttributedString *title;
+    NSString *cardTitle = [[card shape] stringByAppendingString:[card shape]];
+    title = [[NSAttributedString alloc]  initWithString:cardTitle];
+    [cardButton setAttributedTitle:title forState:UIControlStateNormal];
+}
+
+
+- (void) drawThree:(SetCard *)card in:(UIButton*)cardButton {
+    NSAttributedString *title;
+    NSString *cardTitle = [[card shape] stringByAppendingString:[card shape]];
+    cardTitle = [cardTitle stringByAppendingString:[card shape]];
+    title = [[NSAttributedString alloc]  initWithString:cardTitle];
+    [cardButton setAttributedTitle:title forState:UIControlStateNormal];
+}
+
+- (NSString *)titleForCards:(Card *)card {
+    return card.contents;
+}
 
 
 -(void)updateMatchLabel:(Card *)card {

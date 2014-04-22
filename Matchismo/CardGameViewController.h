@@ -14,8 +14,12 @@
 
 @property (strong, nonatomic) CardMatchingGame *game;
 @property (weak, nonatomic) IBOutlet UILabel *resultsLabel;
+@property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardButtons;
+
 
 -(Deck *)createDeck;
 - (void) updateMatchLabel:(Card*)card;
+
+- (void)updateUI;
 
 @end

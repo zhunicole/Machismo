@@ -17,7 +17,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
 @property (weak, nonatomic) IBOutlet UISlider *slider;
 @property (nonatomic, retain) NSMutableArray *labelHistory;
-@property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardButtons;
 
 
 @end
@@ -90,9 +89,8 @@
         [cardButton setTitle:[self titleForCards:card] forState:UIControlStateNormal];
         [cardButton setBackgroundImage:[self backgroundImageForCard:card] forState:UIControlStateNormal];
         cardButton.enabled = !card.isMatched;
-        self.scoreLabel.text = [NSString stringWithFormat:@"Score: %d", self.game.score];
     }
-    
+    self.scoreLabel.text = [NSString stringWithFormat:@"Score: %d", self.game.score];
 }
 
 - (NSString *)titleForCards:(Card *)card {
