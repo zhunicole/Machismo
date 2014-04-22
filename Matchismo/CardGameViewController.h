@@ -18,7 +18,7 @@
 
 
 -(Deck *)createDeck;
-- (void) updateMatchLabel:(Card*)card;
+- (void) updateMatchLabel:(Card*)card with:(Card*)card1 and:(Card*)card2;
 
 - (void)updateUI;
 

@@ -24,14 +24,16 @@
 }
 
 
--(void)updateMatchLabel:(Card *)card {
+
+- (void) updateMatchLabel:(Card*)card with:(Card*)card1 and:(Card*)card2{
+
 //    NSLog(@"checking for match");
     NSString *cardContent = card.contents;
     NSString *card1Content = super.game.card1.contents;
-    if (!self.game.card1.isChosen) {
-        self.game.card1.chosen = YES;
+    if (!card1.isChosen) {
+        card1.chosen = YES;
         card1Content = self.game.card1.contents;
-        self.game.card1.chosen = NO;
+        card1.chosen = NO;
     }
     if (!card1Content) {   //one card flipped
         self.resultsLabel.text = [NSString stringWithFormat:@"%@", cardContent];

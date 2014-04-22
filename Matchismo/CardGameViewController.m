@@ -54,13 +54,18 @@
 
 -(void) updateResultsLabel:(NSInteger)index {
     Card *card = [self.game cardAtIndex:index];
-    [self updateMatchLabel:card];
+    
+    Card *card1 = self.game.card1;
+    Card *card2 = self.game.card2;
+    
+    [self updateMatchLabel:card with:card1 and:card2];
     NSString *current_label = [self.resultsLabel text];
     [self.labelHistory addObject:current_label];
 }
 
 
-- (void) updateMatchLabel:(Card*)card {
+- (void) updateMatchLabel:(Card*)card with:(Card*)card1 and:(Card*)card2{
+    
 }
 
 - (IBAction)toggleLabelHistory:(id)sender {
