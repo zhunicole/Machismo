@@ -23,6 +23,23 @@
 }
 
 -(void)updateMatchLabel:(Card *)card {
+    //    NSString *cardContent = card.contents;
+    //    //if all three are flipped
+    //    if(self.game.card2) {
+    //        //if one and two match
+    //        if (card.matched || self.game.card1.matched || self.game.card2.matched){
+    //            self.resultsLabel.text = [NSString stringWithFormat:@"Matched %@ %@ %@ for %d points", cardContent, self.game.card1.contents , self.game.card2.contents,self.game.pointDifference];
+    //        } else {
+    //            self.resultsLabel.text = [NSString stringWithFormat:@"%@ %@ %@ don't match! %d point penalty!", cardContent, self.game.card1.contents, self.game.card2.contents, self.game.pointDifference];
+    //        }
+    //    } else {    //when less than three cards are flipped
+    //        if(self.game.card1){ //two cards are flipped
+    //            NSString *card1Content = self.game.card1.contents;
+    //            self.resultsLabel.text = [NSString stringWithFormat:@"%@ %@", cardContent, card1Content];
+    //        } else { //only card is flipped
+    //            self.resultsLabel.text = [NSString stringWithFormat:@"%@", cardContent];
+    //        }
+    //    }
 }
 
 

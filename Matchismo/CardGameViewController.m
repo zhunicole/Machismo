@@ -39,7 +39,7 @@
 
 - (IBAction)touchCardButton:(UIButton *)sender {
     int chosenButtonIndex = [self.cardButtons indexOfObject:sender];
-    [self.game chooseCardAtIndex:chosenButtonIndex];
+    [self.game chooseCardAtIndex:chosenButtonIndex];            //TODO fix still calling playing card for set card
     [self updateResultsLabel:chosenButtonIndex];
     [self updateSlider];
     [self updateUI];
@@ -55,11 +55,7 @@
 
 -(void) updateResultsLabel:(NSInteger)index {
     Card *card = [self.game cardAtIndex:index];
-    //    if(self.game.numCardMatchMode == 2){
     [self updateMatchLabel:card];
-    //    } else {        //if matching three cards
-    //        [self updateThreeCardMatchLabel: card];
-    //    }
     NSString *current_label = [self.resultsLabel text];
     [self.labelHistory addObject:current_label];
 }
@@ -67,27 +63,6 @@
 
 - (void) updateMatchLabel:(Card*)card {
 }
-
-//
-//- (void) updateThreeCardMatchLabel:(Card*)card {
-//    NSString *cardContent = card.contents;
-//    //if all three are flipped
-//    if(self.game.card2) {
-//        //if one and two match
-//        if (card.matched || self.game.card1.matched || self.game.card2.matched){
-//            self.resultsLabel.text = [NSString stringWithFormat:@"Matched %@ %@ %@ for %d points", cardContent, self.game.card1.contents , self.game.card2.contents,self.game.pointDifference];
-//        } else {
-//            self.resultsLabel.text = [NSString stringWithFormat:@"%@ %@ %@ don't match! %d point penalty!", cardContent, self.game.card1.contents, self.game.card2.contents, self.game.pointDifference];
-//        }
-//    } else {    //when less than three cards are flipped
-//        if(self.game.card1){ //two cards are flipped
-//            NSString *card1Content = self.game.card1.contents;
-//            self.resultsLabel.text = [NSString stringWithFormat:@"%@ %@", cardContent, card1Content];
-//        } else { //only card is flipped
-//            self.resultsLabel.text = [NSString stringWithFormat:@"%@", cardContent];
-//        }
-//    }
-//}
 
 - (IBAction)toggleLabelHistory:(id)sender {
     int sliderVal = self.slider.value;

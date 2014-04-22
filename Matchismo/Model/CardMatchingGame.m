@@ -7,6 +7,8 @@
 //
 
 #import "CardMatchingGame.h"
+#import "PlayingCard.h"
+#import "SetCard.h"
 
 
 //private properties in area called Class Extension
@@ -68,7 +70,12 @@ static const int TRIPLE_MATCH_BONUS = 2;
         if (card.isChosen) {
             card.chosen = NO;//just flips same card over
         }else {
-            [self twoCardMatch:card];
+            if ([card isKindOfClass:[PlayingCard class]]){
+                [self twoCardMatch:card];
+            } else {
+                [self threeCardMatch:card];
+            }
+
             self.score -= COST_TO_CHOOSE;
             card.chosen = YES;
         }
@@ -77,13 +84,14 @@ static const int TRIPLE_MATCH_BONUS = 2;
 }
 
 
+//TODO change this name
 -(void) twoCardMatch: (Card *) card {
 //    NSLog(@" twoCardMatch model");
     for (Card *otherCard in self.cards) {
         if (otherCard.isChosen && !otherCard.isMatched) {
             //as soon as we find other card, we save it
             _card1 = otherCard;
-            int matchScore = [card match:@[otherCard]];
+            int matchScore = [card match:@[otherCard]];         //over written for Set or Playing card
             if (matchScore) {
                 self.score += matchScore * MATCH_BONUS;
                 otherCard.matched = YES;

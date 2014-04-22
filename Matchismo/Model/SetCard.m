@@ -81,7 +81,8 @@
 
 - (int)match:(NSArray *)otherCards {
     int score = 0;
-    
+
+    //TODO implement SET or no SET logic here
 //    if([otherCards count] == 1) {
 //        SetCard *otherCard = [otherCards firstObject];
 //        if (otherCard.rank == self.rank) {
