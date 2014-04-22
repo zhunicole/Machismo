@@ -61,15 +61,12 @@
     
     if ([card.color isEqualToString:@"red"]) {
         titleAttributes = @{NSForegroundColorAttributeName:   [UIColor redColor],
-//                            NSStrokeWidthAttributeName: [NSNumber numberWithFloat:-5.0],
                             NSStrokeColorAttributeName: [UIColor redColor]};
     } else if ([card.color isEqualToString:@"green"]) {
         titleAttributes = @{NSForegroundColorAttributeName:   [UIColor greenColor],
-//                            NSStrokeWidthAttributeName: [NSNumber numberWithFloat:-5.0],
                             NSStrokeColorAttributeName: [UIColor greenColor]};
     } else {
         titleAttributes = @{NSForegroundColorAttributeName:   [UIColor purpleColor],
-//                            NSStrokeWidthAttributeName: [NSNumber numberWithFloat:-5.0],
                             NSStrokeColorAttributeName: [UIColor purpleColor]};
 
     }

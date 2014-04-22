@@ -93,6 +93,8 @@
     self.scoreLabel.text = [NSString stringWithFormat:@"Score: %d", self.game.score];
 }
 
+
+//TODO refactor updateUI stuff to in here?
 - (NSString *)titleForCards:(Card *)card {
     return card.isChosen ? card.contents : @"";
 }

@@ -8,6 +8,7 @@
 
 #import "PlayingGameViewController.h"
 #import "Deck.h"
+#import "PlayingCard.h"
 #import "PlayingCardDeck.h"
 
 
@@ -44,6 +45,30 @@
 
 }
 
+- (void)updateUI {
+    [super updateUI];
+    
+    for (UIButton *cardButton in self.cardButtons) {
+        int cardButtonIndex = [self.cardButtons indexOfObject:cardButton];
+        PlayingCard *card = (PlayingCard *)[self.game cardAtIndex:cardButtonIndex];
+        
+        //check if is heart or diamond
+        if ([card.suit isEqualToString:@"♥︎"] || [card.suit isEqualToString:@"♦︎"]){
+            if (card.isChosen) {
+                NSDictionary *titleAttributes = @{NSForegroundColorAttributeName:   [UIColor redColor]};
+                NSMutableAttributedString *title = [[NSMutableAttributedString alloc]  initWithString:[card contents]];
+                [title setAttributes:titleAttributes range: [[title string] rangeOfString:[title string]]];
+                [cardButton setAttributedTitle:title forState:UIControlStateNormal];
+            } else {
+                NSMutableAttributedString *title = [[NSMutableAttributedString alloc]  initWithString:@""];
+                [cardButton setAttributedTitle:title forState:UIControlStateNormal];
+            }
+        }
+        
+    }
+    
+}
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -76,15 +101,5 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
