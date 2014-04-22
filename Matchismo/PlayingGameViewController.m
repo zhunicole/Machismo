@@ -25,26 +25,37 @@
 
 
 
-- (void) updateMatchLabel:(Card*)card with:(Card*)card1 and:(Card*)card2{
-
-//    NSLog(@"checking for match");
-    NSString *cardContent = card.contents;
-    NSString *card1Content = super.game.card1.contents;
+- (void) updateMatchLabel:(PlayingCard*)card with:(PlayingCard*)card1 and:(PlayingCard*)card2{
+    NSString *card1Content = card1.contents;
+    
     if (!card1.isChosen) {
         card1.chosen = YES;
-        card1Content = self.game.card1.contents;
+        card1Content = card1.contents;
         card1.chosen = NO;
     }
-    if (!card1Content) {   //one card flipped
-        self.resultsLabel.text = [NSString stringWithFormat:@"%@", cardContent];
-    } else if (card.matched){
-//        NSLog(@"here");
-        self.resultsLabel.text = [NSString stringWithFormat:@"Matched %@ %@ for %d points", cardContent, card1Content, self.game.pointDifference];
-    } else {
-//        NSLog(@"here");
-        self.resultsLabel.text = [NSString stringWithFormat:@"%@ %@ don't match! %d point penalty!", cardContent, card1Content, self.game.pointDifference];
+    
+    NSMutableAttributedString* cardTitle = [self makeAttrString:card];
+    NSMutableAttributedString* card1Title;
+    if (card1Content) {
+        card1Title = [self makeAttrString:card1];
+        [cardTitle appendAttributedString:card1Title];
     }
-
+    
+    if (!card1Content) {   //one card flipped
+        [self.resultsLabel setAttributedText:cardTitle];
+    } else{
+        NSString *regularStringLabel;
+        if (card.matched){
+            regularStringLabel = [NSString stringWithFormat:@" matched for %d points", self.game.pointDifference];
+        } else {
+            regularStringLabel = [NSString stringWithFormat:@" don't match! %d point penalty!", self.game.pointDifference];
+        }
+        NSMutableAttributedString* cardAttrContent = [[NSMutableAttributedString alloc]  initWithString:regularStringLabel];
+        [cardTitle appendAttributedString:cardAttrContent];
+        [self.resultsLabel setAttributedText:cardTitle];
+    }
+        
+    
 }
 
 - (void)updateUI {
@@ -57,9 +68,7 @@
         //check if is heart or diamond
         if ([card.suit isEqualToString:@"♥︎"] || [card.suit isEqualToString:@"♦︎"]){
             if (card.isChosen) {
-                NSDictionary *titleAttributes = @{NSForegroundColorAttributeName:   [UIColor redColor]};
-                NSMutableAttributedString *title = [[NSMutableAttributedString alloc]  initWithString:[card contents]];
-                [title setAttributes:titleAttributes range: [[title string] rangeOfString:[title string]]];
+                NSMutableAttributedString* title = [self makeRedAttrString:card];
                 [cardButton setAttributedTitle:title forState:UIControlStateNormal];
             } else {
                 NSMutableAttributedString *title = [[NSMutableAttributedString alloc]  initWithString:@""];
@@ -68,7 +77,23 @@
         }
         
     }
-    
+}
+
+-(NSMutableAttributedString *)makeAttrString:(PlayingCard*) card{
+    NSMutableAttributedString* cardTitle;
+    if ([card.suit isEqualToString:@"♥︎"] || [card.suit isEqualToString:@"♦︎"]){
+        cardTitle = [self makeRedAttrString:card];
+    } else {
+        cardTitle = [[NSMutableAttributedString alloc]  initWithString:[card contents]];
+    }
+    return cardTitle;
+}
+
+-(NSMutableAttributedString *)makeRedAttrString:(Card*) card {
+    NSDictionary *titleAttributes = @{NSForegroundColorAttributeName:   [UIColor redColor]};
+    NSMutableAttributedString *title = [[NSMutableAttributedString alloc]  initWithString:[card contents]];
+    [title setAttributes:titleAttributes range: [[title string] rangeOfString:[title string]]];
+    return title;
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
