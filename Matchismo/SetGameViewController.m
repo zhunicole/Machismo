@@ -36,8 +36,6 @@
     for (UIButton *cardButton in self.cardButtons) {
         int cardButtonIndex = [self.cardButtons indexOfObject:cardButton];
         SetCard *card = (SetCard *)[self.game cardAtIndex:cardButtonIndex];
-        //TODO eventually have to set title to "" empty string!!
-//        [cardButton setTitle:[self titleForCards:card] forState:UIControlStateNormal];
         
         if ([card rank] == 1) {
             [self drawOne: card in: cardButton];
@@ -108,30 +106,79 @@
     [cardButton setAttributedTitle:title forState:UIControlStateNormal];
 }
 
-- (NSString *)titleForCards:(Card *)card {
-    return card.contents;
+- (NSMutableAttributedString *)tempTitleForCards:(SetCard *)card {
+    NSString *cardTitle;
+
+    if ([card rank] == 1) {
+        cardTitle =[card shape];
+    } else if ([card rank] == 2) {
+        cardTitle = [[card shape] stringByAppendingString:[card shape]];
+    } else {
+        cardTitle = [[card shape] stringByAppendingString:[card shape]];
+        cardTitle = [cardTitle stringByAppendingString:[card shape]];
+    }
+    NSMutableAttributedString *title = [[NSMutableAttributedString alloc]  initWithString:cardTitle];
+
+    
+    NSDictionary *titleAttributes;
+    if ([card.color isEqualToString:@"red"]) {
+        titleAttributes = @{NSForegroundColorAttributeName:   [UIColor redColor],
+                            NSStrokeColorAttributeName: [UIColor redColor]};
+    } else if ([card.color isEqualToString:@"green"]) {
+        titleAttributes = @{NSForegroundColorAttributeName:   [UIColor greenColor],
+                            NSStrokeColorAttributeName: [UIColor greenColor]};
+    } else {
+        titleAttributes = @{NSForegroundColorAttributeName:   [UIColor purpleColor],
+                            NSStrokeColorAttributeName: [UIColor purpleColor]};
+        
+    }
+    [title setAttributes:titleAttributes range: [[title string] rangeOfString:[title string]]];
+    
+    
+    if ([card.shade isEqualToString: @"open"]) {
+        [title addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor] range:[[title string] rangeOfString:[title string]]];
+    } else if ([card.shade isEqualToString: @"striped"]) {
+        UIColor *color = [titleAttributes objectForKey:NSForegroundColorAttributeName];
+        color = [color colorWithAlphaComponent:0.5];
+        [title addAttribute:NSForegroundColorAttributeName value:color range:[[title string] rangeOfString:[title string]]];
+    }
+    
+    [title addAttribute:NSStrokeWidthAttributeName value:[NSNumber numberWithFloat:-5.0] range: [[title string] rangeOfString:[title string]]];
+    return title;
 }
 
 
-- (void) updateMatchLabel:(Card*)card with:(Card*)card1 and:(Card*)card2{
 
-    NSString *cardContent = card.contents;
+
+- (void) updateMatchLabel:(SetCard*)card with:(SetCard*)card1 and:(SetCard*)card2{
+
+    NSMutableAttributedString* cardTitle = [self tempTitleForCards:card];
+    
     //if all three are flipped
-        if(card2) {
-            //if set
-            if (card.matched){
-                self.resultsLabel.text = [NSString stringWithFormat:@"Set %@ %@ %@ for %d points", cardContent, card1.contents , card2.contents, self.game.pointDifference];
-            } else {
-                self.resultsLabel.text = [NSString stringWithFormat:@"%@ %@ %@ don't make set! %d point penalty!", cardContent, card1.contents, card2.contents, self.game.pointDifference];
-            }
-        } else {    //when less than three cards are flipped
-            if(card1){ //two cards are flipped
-                NSString *card1Content = card1.contents;
-            self.resultsLabel.text = [NSString stringWithFormat:@"%@ %@", cardContent, card1Content];
-            } else { //only card is flipped
-                self.resultsLabel.text = [NSString stringWithFormat:@"%@", cardContent];
-            }
+    if(card2) {
+        //if set
+        NSMutableAttributedString* card1Title = [self tempTitleForCards:card1];
+        NSMutableAttributedString* card2Title = [self tempTitleForCards:card2];
+
+        [cardTitle appendAttributedString:card1Title];
+        [cardTitle appendAttributedString:card2Title];
+        NSString *regularStringLabel;
+        if (card.matched){
+            regularStringLabel = [NSString stringWithFormat:@" is a SET for %d points", self.game.pointDifference];
+        } else {
+            regularStringLabel = [NSString stringWithFormat:@" doesn't make a set! %d point penalty!", self.game.pointDifference];
         }
+        NSMutableAttributedString* cardAttrContent = [[NSMutableAttributedString alloc]  initWithString:regularStringLabel];
+        [cardTitle appendAttributedString:cardAttrContent];
+
+    } else {    //when less than three cards are flipped
+        if(card1){ //two cards are flipped
+            NSMutableAttributedString* card1Title = [self tempTitleForCards:card1];
+
+            [cardTitle appendAttributedString:card1Title];
+        }
+    }
+    [self.resultsLabel setAttributedText:cardTitle];
 }
 
 
