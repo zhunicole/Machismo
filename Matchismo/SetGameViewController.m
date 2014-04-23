@@ -24,7 +24,7 @@
 }
 
 - (UIImage *)backgroundImageForCard: (Card *) card {
-    if (card.isChosen) {
+    if (card.isChosen && !card.isMatched) {
         return [UIImage imageNamed:@"stanford-tree"]; //when chosen
     } else {
         return [UIImage imageNamed:@"cardfront"];
@@ -37,76 +37,13 @@
         int cardButtonIndex = [self.cardButtons indexOfObject:cardButton];
         SetCard *card = (SetCard *)[self.game cardAtIndex:cardButtonIndex];
         
-        if ([card rank] == 1) {
-            [self drawOne: card in: cardButton];
-        } else if ([card rank] == 2) {
-            [self drawTwo: card in: cardButton];
-        } else {
-            [self drawThree: card in: cardButton];
-        }
-        
-        [self setSymbolAttributes: card in:cardButton];
-        
+        NSMutableAttributedString* cardTitle = [self titleForCards:card];
+        [cardButton setAttributedTitle:cardTitle forState:UIControlStateNormal];
     }
     
 }
 
-
-- (void) setSymbolAttributes:(SetCard*)card in:(UIButton*) cardButton{
-    
-    NSMutableAttributedString *title = [[cardButton attributedTitleForState:UIControlStateNormal] mutableCopy];
-    NSDictionary *titleAttributes;
-    
-    if ([card.color isEqualToString:@"red"]) {
-        titleAttributes = @{NSForegroundColorAttributeName:   [UIColor redColor],
-                            NSStrokeColorAttributeName: [UIColor redColor]};
-    } else if ([card.color isEqualToString:@"green"]) {
-        titleAttributes = @{NSForegroundColorAttributeName:   [UIColor greenColor],
-                            NSStrokeColorAttributeName: [UIColor greenColor]};
-    } else {
-        titleAttributes = @{NSForegroundColorAttributeName:   [UIColor purpleColor],
-                            NSStrokeColorAttributeName: [UIColor purpleColor]};
-
-    }
-    [title setAttributes:titleAttributes range: [[title string] rangeOfString:[title string]]];
-
-
-    if ([card.shade isEqualToString: @"open"]) {
-        [title addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor] range:[[title string] rangeOfString:[title string]]];
-    } else if ([card.shade isEqualToString: @"striped"]) {
-        UIColor *color = [titleAttributes objectForKey:NSForegroundColorAttributeName];
-        color = [color colorWithAlphaComponent:0.5];
-        [title addAttribute:NSForegroundColorAttributeName value:color range:[[title string] rangeOfString:[title string]]];
-    }
-    
-    [title addAttribute:NSStrokeWidthAttributeName value:[NSNumber numberWithFloat:-5.0] range: [[title string] rangeOfString:[title string]]];
-    [cardButton setAttributedTitle:title forState:UIControlStateNormal];
-}
-
-- (void) drawOne:(SetCard *)card in:(UIButton*)cardButton {
-    NSAttributedString *title;
-    title = [[NSAttributedString alloc]  initWithString:[card shape]];
-    [cardButton setAttributedTitle:title forState:UIControlStateNormal];
-}
-
-
-- (void) drawTwo:(SetCard *)card in:(UIButton*)cardButton {
-    NSAttributedString *title;
-    NSString *cardTitle = [[card shape] stringByAppendingString:[card shape]];
-    title = [[NSAttributedString alloc]  initWithString:cardTitle];
-    [cardButton setAttributedTitle:title forState:UIControlStateNormal];
-}
-
-
-- (void) drawThree:(SetCard *)card in:(UIButton*)cardButton {
-    NSAttributedString *title;
-    NSString *cardTitle = [[card shape] stringByAppendingString:[card shape]];
-    cardTitle = [cardTitle stringByAppendingString:[card shape]];
-    title = [[NSAttributedString alloc]  initWithString:cardTitle];
-    [cardButton setAttributedTitle:title forState:UIControlStateNormal];
-}
-
-- (NSMutableAttributedString *)tempTitleForCards:(SetCard *)card {
+- (NSMutableAttributedString *)titleForCards:(SetCard *)card {
     NSString *cardTitle;
 
     if ([card rank] == 1) {
@@ -152,13 +89,13 @@
 
 - (void) updateMatchLabel:(SetCard*)card with:(SetCard*)card1 and:(SetCard*)card2{
 
-    NSMutableAttributedString* cardTitle = [self tempTitleForCards:card];
+    NSMutableAttributedString* cardTitle = [self titleForCards:card];
     
     //if all three are flipped
     if(card2) {
         //if set
-        NSMutableAttributedString* card1Title = [self tempTitleForCards:card1];
-        NSMutableAttributedString* card2Title = [self tempTitleForCards:card2];
+        NSMutableAttributedString* card1Title = [self titleForCards:card1];
+        NSMutableAttributedString* card2Title = [self titleForCards:card2];
 
         [cardTitle appendAttributedString:card1Title];
         [cardTitle appendAttributedString:card2Title];
@@ -175,7 +112,7 @@
 
     } else {    //when less than three cards are flipped
         if(card1){ //two cards are flipped
-            NSMutableAttributedString* card1Title = [self tempTitleForCards:card1];
+            NSMutableAttributedString* card1Title = [self titleForCards:card1];
 
             [cardTitle appendAttributedString:card1Title];
         }

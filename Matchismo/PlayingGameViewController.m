@@ -35,10 +35,10 @@
         card1.chosen = NO;
     }
     
-    NSMutableAttributedString* cardTitle = [self makeCardAttrSymbol:card];
+    NSMutableAttributedString* cardTitle = [self tempTitleForCards:card];
     NSMutableAttributedString* card1Title;
     if (card1Content) {
-        card1Title = [self makeCardAttrSymbol:card1];
+        card1Title = [self tempTitleForCards:card1];
         [cardTitle appendAttributedString:card1Title];
     }
     
@@ -68,7 +68,7 @@
     for (UIButton *cardButton in self.cardButtons) {
         int cardButtonIndex = [self.cardButtons indexOfObject:cardButton];
         PlayingCard *card = (PlayingCard *)[self.game cardAtIndex:cardButtonIndex];
-        NSMutableAttributedString *title = [self makeCardAttrSymbol:card];
+        NSMutableAttributedString *title = [self tempTitleForCards:card];
         if (card.isChosen) {
             [cardButton setAttributedTitle:title forState:UIControlStateNormal];
         } else {
@@ -80,7 +80,7 @@
 
 
 
--(NSMutableAttributedString *)makeCardAttrSymbol:(PlayingCard*) card {
+-(NSMutableAttributedString *)tempTitleForCards:(PlayingCard*) card {
     NSDictionary *redAttributes = @{NSForegroundColorAttributeName:   [UIColor redColor] };
     NSDictionary *blackAttributes = @{NSForegroundColorAttributeName:   [UIColor blackColor]};
 

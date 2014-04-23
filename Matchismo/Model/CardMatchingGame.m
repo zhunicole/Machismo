@@ -82,7 +82,6 @@ static const int SET_BONUS = 10;
 }
 
 
-//TODO change this name
 -(void) twoCardMatch: (Card *) card {
 //    NSLog(@" twoCardMatch model");
     for (Card *otherCard in self.cards) {
@@ -141,7 +140,7 @@ static const int SET_BONUS = 10;
     }
     card.chosen = NO;
     _card1.chosen = NO;
-    _card2.chosen = NO;         //TODO implement chosen in view here, change card background
+    _card2.chosen = NO;         
     
 }
 

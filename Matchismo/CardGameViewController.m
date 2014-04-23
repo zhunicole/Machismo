@@ -41,7 +41,7 @@
 
 - (IBAction)touchCardButton:(UIButton *)sender {
     int chosenButtonIndex = [self.cardButtons indexOfObject:sender];
-    [self.game chooseCardAtIndex:chosenButtonIndex];            //TODO fix still calling playing card for set card
+    [self.game chooseCardAtIndex:chosenButtonIndex];
     [self updateResultsLabel:chosenButtonIndex];
     [self updateSlider];
     [self updateUI];
@@ -107,7 +107,7 @@
 }
 
 
-//TODO refactor updateUI stuff to in here?
+//rewritten in playing card and set class to return attributed strings
 - (NSString *)titleForCards:(Card *)card {
     return card.isChosen ? card.contents : @"";
 }
