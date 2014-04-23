@@ -35,10 +35,10 @@
         card1.chosen = NO;
     }
     
-    NSMutableAttributedString* cardTitle = [self makeAttrString:card];
+    NSMutableAttributedString* cardTitle = [self makeCardAttrSymbol:card];
     NSMutableAttributedString* card1Title;
     if (card1Content) {
-        card1Title = [self makeAttrString:card1];
+        card1Title = [self makeCardAttrSymbol:card1];
         [cardTitle appendAttributedString:card1Title];
     }
     
@@ -68,35 +68,38 @@
     for (UIButton *cardButton in self.cardButtons) {
         int cardButtonIndex = [self.cardButtons indexOfObject:cardButton];
         PlayingCard *card = (PlayingCard *)[self.game cardAtIndex:cardButtonIndex];
-        
-        //check if is heart or diamond
-        if ([card.suit isEqualToString:@"♥︎"] || [card.suit isEqualToString:@"♦︎"]){
-            if (card.isChosen) {
-                NSMutableAttributedString* title = [self makeRedAttrString:card];
-                [cardButton setAttributedTitle:title forState:UIControlStateNormal];
-            } else {
-                NSMutableAttributedString *title = [[NSMutableAttributedString alloc]  initWithString:@""];
-                [cardButton setAttributedTitle:title forState:UIControlStateNormal];
-            }
+        NSMutableAttributedString *title = [self makeCardAttrSymbol:card];
+        if (card.isChosen) {
+            [cardButton setAttributedTitle:title forState:UIControlStateNormal];
+        } else {
+            title = [[NSMutableAttributedString alloc]  initWithString:@""];
+            [cardButton setAttributedTitle:title forState:UIControlStateNormal];
         }
-        
     }
 }
 
--(NSMutableAttributedString *)makeAttrString:(PlayingCard*) card{
-    NSMutableAttributedString* cardTitle;
-    if ([card.suit isEqualToString:@"♥︎"] || [card.suit isEqualToString:@"♦︎"]){
-        cardTitle = [self makeRedAttrString:card];
-    } else {
-        cardTitle = [[NSMutableAttributedString alloc]  initWithString:[card contents]];
-    }
-    return cardTitle;
-}
 
--(NSMutableAttributedString *)makeRedAttrString:(Card*) card {
-    NSDictionary *titleAttributes = @{NSForegroundColorAttributeName:   [UIColor redColor]};
+
+-(NSMutableAttributedString *)makeCardAttrSymbol:(PlayingCard*) card {
+    NSDictionary *redAttributes = @{NSForegroundColorAttributeName:   [UIColor redColor] };
+    NSDictionary *blackAttributes = @{NSForegroundColorAttributeName:   [UIColor blackColor]};
+
     NSMutableAttributedString *title = [[NSMutableAttributedString alloc]  initWithString:[card contents]];
-    [title setAttributes:titleAttributes range: [[title string] rangeOfString:[title string]]];
+    
+    if ([card.suit isEqualToString:@"♥︎"] || [card.suit isEqualToString:@"♦︎"]){
+        NSInteger endingIndex = [title length] -1;
+        NSInteger startingIndex = 1;
+        
+        [title setAttributes:redAttributes range:NSMakeRange(startingIndex,endingIndex)];
+        [title setAttributes:blackAttributes range:NSMakeRange(0,startingIndex)];
+        if([card rank] == 10){
+            [title setAttributes:blackAttributes range:NSMakeRange(0,startingIndex+1)];
+        }
+
+    } else {
+        [title setAttributes:blackAttributes range:[[title string] rangeOfString:[title string]]];
+    }
+    
     return title;
 }
 

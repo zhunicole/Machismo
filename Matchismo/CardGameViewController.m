@@ -68,11 +68,6 @@
     
 }
 
-- (void) updateHistoryArray {
-    //TODO only do so if there is a match
-//    [self.matchHistoryAttributedStrings addObject:current_label];
-
-}
 
 - (void) updateMatchLabel:(Card*)card with:(Card*)card1 and:(Card*)card2{
     
@@ -84,7 +79,10 @@
     index *= [self.labelHistory count];
     int indexInt = index;
     NSString *labelAtIndex;
-    if (indexInt == [self.labelHistory count]) {
+    if ([self.labelHistory count] == 0){
+        self.resultsLabel.text =  @"";
+        [self.resultsLabel setAlpha:0.5 ];
+    }else if(indexInt == [self.labelHistory count]) {
         labelAtIndex = [self.labelHistory objectAtIndex:(indexInt-1)];
         self.resultsLabel.text = [NSString stringWithFormat:@"%@", labelAtIndex];
         [self.resultsLabel setAlpha: 1.0 ];
