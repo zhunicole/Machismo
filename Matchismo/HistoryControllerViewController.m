@@ -13,7 +13,17 @@
 
 @end
 
+
 @implementation HistoryControllerViewController
+
+
+-(void)updateHistoryTextView {
+
+    for (NSString *line in _historyText) {
+        NSAttributedString *value = [[NSMutableAttributedString alloc] initWithString:line];
+        _historyTextField.attributedText = value;
+    }
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -27,6 +37,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self updateHistoryTextView];
     // Do any additional setup after loading the view.
 }
 

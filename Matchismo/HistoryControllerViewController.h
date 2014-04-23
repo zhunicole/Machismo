@@ -12,5 +12,5 @@
 
 @property (nonatomic, retain) NSMutableArray *historyText;
 
-
+-(void)updateHistoryTextView;
 @end

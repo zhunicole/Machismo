@@ -18,6 +18,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
 @property (weak, nonatomic) IBOutlet UISlider *slider;
 @property (nonatomic, retain) NSMutableArray *labelHistory;
+@property (nonatomic, retain) NSMutableArray *matchHistoryAttributedStrings;
 
 
 @end
@@ -29,6 +30,7 @@
         _game = [[CardMatchingGame alloc] initWithCardCount:[self.cardButtons count]
                                                   usingDeck:[self createDeck]];
         self.labelHistory = [[NSMutableArray alloc] init];
+        self.matchHistoryAttributedStrings = [[NSMutableArray alloc] init];
     }
     return _game;
 }
@@ -62,6 +64,9 @@
     [self updateMatchLabel:card with:card1 and:card2];
     NSString *current_label = [self.resultsLabel text];
     [self.labelHistory addObject:current_label];
+    
+    //TODO only do so if there is a match
+    [self.matchHistoryAttributedStrings addObject:current_label];
 }
 
 
@@ -155,12 +160,11 @@
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-    
     if ([segue.identifier isEqualToString:@"HistoryView"]) {
         HistoryControllerViewController *hvc = (HistoryControllerViewController *)segue.destinationViewController;
-        hvc.historyText = self.labelHistory;//[self charactersWithAttribute:NSForegroundColorAttributeName];
+        hvc.historyText = self.matchHistoryAttributedStrings;
+//        hvc.updateHistoryTextView;
+        
     }
 }
 
