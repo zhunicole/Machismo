@@ -140,7 +140,7 @@ static const int SET_BONUS = 10;
     }
     card.chosen = NO;
     _card1.chosen = NO;
-    _card2.chosen = NO;         
+    _card2.chosen = NO;
     
 }
 

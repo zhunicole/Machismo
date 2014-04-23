@@ -25,7 +25,7 @@
 
 - (UIImage *)backgroundImageForCard: (Card *) card {
     if (card.isChosen && !card.isMatched) {
-        return [UIImage imageNamed:@"stanford-tree"]; //when chosen
+        return [UIImage imageNamed:@"highlighted"]; //when chosen
     } else {
         return [UIImage imageNamed:@"cardfront"];
     }
