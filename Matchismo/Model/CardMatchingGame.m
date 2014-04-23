@@ -127,14 +127,14 @@ static const int SET_BONUS = 10;
     int isASet = [card match:setCards];
 
     if (isASet) {
-        NSLog(@"This is a set %@ %@ %@", card.contents, _card1.contents, _card2.contents);
+//        NSLog(@"This is a set %@ %@ %@", card.contents, _card1.contents, _card2.contents);
         card.matched = YES;
         _card1.matched = YES;
         _card2.matched = YES;
         self.score += SET_BONUS;
 
     } else {
-        NSLog(@"NOT a set %@ %@ %@", card.contents, _card1.contents, _card2.contents);
+//        NSLog(@"NOT a set %@ %@ %@", card.contents, _card1.contents, _card2.contents);
         card.matched = NO;
         _card1.matched = NO;
         _card2.matched = NO;

@@ -18,11 +18,14 @@
 
 
 -(void)updateHistoryTextView {
-
-    for (NSString *line in _historyText) {
-        NSAttributedString *value = [[NSMutableAttributedString alloc] initWithString:line];
-        _historyTextField.attributedText = value;
+    NSMutableAttributedString *value = [[NSMutableAttributedString alloc] initWithString:@""];
+    NSMutableAttributedString *enter = [[NSMutableAttributedString alloc] initWithString:@"\n"];
+    
+    for (NSAttributedString *line in _historyText) {
+        [value appendAttributedString:line];
+        [value appendAttributedString:enter];
     }
+    _historyTextField.attributedText = value;
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil

@@ -25,6 +25,7 @@
 
 
 
+
 - (void) updateMatchLabel:(PlayingCard*)card with:(PlayingCard*)card1 and:(PlayingCard*)card2{
     NSString *card1Content = card1.contents;
     
@@ -53,6 +54,9 @@
         NSMutableAttributedString* cardAttrContent = [[NSMutableAttributedString alloc]  initWithString:regularStringLabel];
         [cardTitle appendAttributedString:cardAttrContent];
         [self.resultsLabel setAttributedText:cardTitle];
+        
+        //adding to history view here
+        [self.matchHistoryAttributedStrings addObject:cardTitle];
     }
         
     

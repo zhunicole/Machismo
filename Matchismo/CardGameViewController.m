@@ -18,7 +18,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
 @property (weak, nonatomic) IBOutlet UISlider *slider;
 @property (nonatomic, retain) NSMutableArray *labelHistory;
-@property (nonatomic, retain) NSMutableArray *matchHistoryAttributedStrings;
+
 
 
 @end
@@ -62,13 +62,17 @@
     Card *card2 = self.game.card2;
     
     [self updateMatchLabel:card with:card1 and:card2];
+    
     NSString *current_label = [self.resultsLabel text];
     [self.labelHistory addObject:current_label];
     
-    //TODO only do so if there is a match
-    [self.matchHistoryAttributedStrings addObject:current_label];
 }
 
+- (void) updateHistoryArray {
+    //TODO only do so if there is a match
+//    [self.matchHistoryAttributedStrings addObject:current_label];
+
+}
 
 - (void) updateMatchLabel:(Card*)card with:(Card*)card1 and:(Card*)card2{
     
@@ -163,7 +167,6 @@
     if ([segue.identifier isEqualToString:@"HistoryView"]) {
         HistoryControllerViewController *hvc = (HistoryControllerViewController *)segue.destinationViewController;
         hvc.historyText = self.matchHistoryAttributedStrings;
-//        hvc.updateHistoryTextView;
         
     }
 }

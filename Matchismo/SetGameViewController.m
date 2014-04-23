@@ -170,6 +170,8 @@
         }
         NSMutableAttributedString* cardAttrContent = [[NSMutableAttributedString alloc]  initWithString:regularStringLabel];
         [cardTitle appendAttributedString:cardAttrContent];
+        [self.matchHistoryAttributedStrings addObject:cardTitle];
+
 
     } else {    //when less than three cards are flipped
         if(card1){ //two cards are flipped
